@@ -1,9 +1,10 @@
 # maya — input
 
 <!--
-  The ONE file you edit and the ONLY thing you hand to Claude Code.
+  The ONE file you edit and the ONLY thing you hand to your AI agent.
   Put your question under "Topic". Leave "How maya runs".
-  To run: open Claude Code in this folder and say:   read input.md and execute it
+  To run: open an AI agent (Claude Code / Codex) in this folder and say:
+          read input.md and execute it
 -->
 
 ## Topic

@@ -1,10 +1,10 @@
 # maya
 
-**An autonomous discovery engine that gives Claude Code a *subconscious*.**
+**An autonomous discovery engine that gives an AI agent a *subconscious*.**
 
-You ask a question in `input.md` and say **“read input.md and execute it.”**
+You ask a question in `input.md` and tell your AI agent **“read input.md and execute it.”**
 
-Claude Code is the **conscious** mind: it researches your question on the web,
+The AI is the **conscious** mind: it researches your question on the web,
 deliberately. But everything it reads pours into a persistent **subconscious** — one
 associative memory that keeps accumulating across *every* question you ever ask,
 links ideas between distant domains, and lets new conjectures surface from those
@@ -16,8 +16,8 @@ claims to have proved anything.
 
 ## Run it
 
-1. Install [Claude Code](https://claude.com/claude-code), and Python 3.9+ with `numpy`.
-2. Open Claude Code in this folder.
+1. Install an AI coding agent, and Python 3.9+ with `numpy`.
+2. Open the agent in this folder.
 3. Put your question under `## Topic` in `input.md`.
 4. Say: **read input.md and execute it**
 
@@ -46,9 +46,10 @@ Three code files. The cognition is the agent; the skeleton is small and readable
 
 ## How it works
 
-The **conscious** loop (Claude Code researching) constantly feeds the **subconscious**
-(the graph) — **observe → associate → doubt → dream → verify → curiosity** — all
-through `maya`’s tool calls:
+Point a capable coding agent at it — [Claude Code](https://claude.com/claude-code)
+or [Codex](https://github.com/openai/codex). The agent runs the **conscious** loop
+(researching) that constantly feeds the **subconscious** (the graph) — **observe →
+associate → doubt → dream → verify → curiosity** — all through `maya`’s tool calls:
 
 - **observe** a cited claim → it becomes concepts + a weighted, Hebbian-reinforced edge.
 - **associate** the links you see → analogies, patterns, contradictions (kept, never deleted).
