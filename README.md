@@ -16,7 +16,7 @@ claims to have proved anything.
 
 ## Run it
 
-1. Install an AI coding agent, and Python 3.9+ with `numpy`.
+1. Install an AI coding agent — [Claude Code](https://claude.com/claude-code) or [Codex](https://github.com/openai/codex) — and Python 3.9+ with `numpy`.
 2. Open the agent in this folder.
 3. Put your question under `## Topic` in `input.md`.
 4. Say: **read input.md and execute it**
