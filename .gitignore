@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+
+# per-run scratch (the agent dumps its research sweep here before ingesting)
+findings.json
+
+# the persisted graph lives in ~/.cache/maya/graph/ — outside the repo
