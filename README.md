@@ -1,13 +1,16 @@
 # maya
 
-**An autonomous discovery engine you drive with Claude Code.**
+**An autonomous discovery engine that gives Claude Code a *subconscious*.**
 
-You write a question in `input.md` and say **“read input.md and execute it.”** From
-there Claude Code is the *cortex*: it researches the question on the web, pours
-everything it observes into one persistent associative memory (a self-organizing
-“subconscious”), surfaces novel cross-domain conjectures, and verifies the checkable
-ones in a sealed playground. It maps and conjectures — it never claims to have
-proved anything.
+You ask a question in `input.md` and say **“read input.md and execute it.”**
+
+Claude Code is the **conscious** mind: it researches your question on the web,
+deliberately. But everything it reads pours into a persistent **subconscious** — one
+associative memory that keeps accumulating across *every* question you ever ask,
+links ideas between distant domains, and lets new conjectures surface from those
+connections, the way a human mind makes sense of things in the background. maya maps
+and conjectures, and verifies the checkable pieces in a sealed playground — it never
+claims to have proved anything.
 
 ---
 
@@ -18,10 +21,10 @@ proved anything.
 3. Put your question under `## Topic` in `input.md`.
 4. Say: **read input.md and execute it**
 
-Watch `ideas.md` (conjectures) and `questions.md` (open doubts) fill in. The graph
-itself persists in `~/.cache/maya/graph/` — and it’s **global**: every question you
-ever ask feeds one shared, cross-domain memory, which is where the surprising bridges
-come from.
+Watch `ideas.md` (conjectures) and `questions.md` (open doubts) fill in. The
+subconscious itself persists in `~/.cache/maya/graph/` — and it’s **global**: every
+question you ever ask feeds one shared, cross-domain memory, which is where the
+surprising bridges come from.
 
 ---
 
@@ -31,7 +34,7 @@ come from.
 | --- | --- |
 | `input.md` | your question + the standing protocol — the only file you edit |
 | `maya.py` | the tool calls — the whole interface |
-| `memory.py` | the global associative graph (the subconscious) |
+| `memory.py` | the global associative graph — the **subconscious** |
 | `verifier.py` | the sealed playground for self-written checks |
 | `ideas.md` | conjectures, for human review |
 | `questions.md` | open doubts (add your own to steer it) |
@@ -43,8 +46,9 @@ Three code files. The cognition is the agent; the skeleton is small and readable
 
 ## How it works
 
-Claude Code runs a loop — **observe → associate → doubt → dream → verify → curiosity** —
-recording everything through `maya`’s tool calls:
+The **conscious** loop (Claude Code researching) constantly feeds the **subconscious**
+(the graph) — **observe → associate → doubt → dream → verify → curiosity** — all
+through `maya`’s tool calls:
 
 - **observe** a cited claim → it becomes concepts + a weighted, Hebbian-reinforced edge.
 - **associate** the links you see → analogies, patterns, contradictions (kept, never deleted).
@@ -52,9 +56,9 @@ recording everything through `maya`’s tool calls:
 - **dream** at the frontier → novel connections become conjectures in `ideas.md`.
 - **verify** a checkable piece → write code, run it sealed (no network, time/memory limits).
 
-The memory is an 8-layer typed graph with a vector index and spreading activation.
-Every write is **idempotent** (re-running reinforces, never duplicates), so the loop
-is safe to repeat. See [`architecture.md`](architecture.md) for the full design.
+The subconscious is an 8-layer typed graph with a vector index and spreading
+activation. Every write is **idempotent** (re-running reinforces, never duplicates),
+so the loop is safe to repeat. See [`architecture.md`](architecture.md) for the full design.
 
 ---
 
