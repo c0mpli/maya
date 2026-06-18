@@ -67,3 +67,9 @@ tiny, fixed substrate. maya’s rule is **simple skeleton, rich cognition.**
 And it stays honest: maya maps and conjectures — leads you can chase, with the
 checkable pieces verified by sound checks against independent ground truth. It never
 claims certainty.
+
+---
+
+## License
+
+[MIT](LICENSE) © 2026 c0mpli
