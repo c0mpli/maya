@@ -15,6 +15,7 @@ for input.md's topic and auto-saves on exit. The whole interface is right here.
 from __future__ import annotations
 
 import atexit
+import os
 import pathlib
 import re
 
@@ -42,7 +43,8 @@ def topic():
 def _g():
     global _M, _STORE
     if _M is None:
-        _STORE = pathlib.Path.home() / ".cache" / "maya" / "graph"   # ONE global graph — cross-domain memory, like a brain
+        # one global cross-domain graph by default; set MAYA_STORE to run an isolated / parallel graph
+        _STORE = pathlib.Path(os.environ.get("MAYA_STORE") or (pathlib.Path.home() / ".cache" / "maya" / "graph"))
         _M = Memory.open(_STORE)
         if topic()[:60].strip().lower() not in _M._by_name:
             _M.concept(topic()[:60], topic())      # the topic is just the current focus, not a silo
