@@ -9,8 +9,9 @@ deliberately. But everything it reads pours into a persistent **subconscious** �
 associative memory that keeps accumulating across *every* question you ever ask,
 links ideas between distant domains, and lets new conjectures surface from those
 connections, the way a human mind makes sense of things in the background. maya maps
-and conjectures, and verifies the checkable pieces in a sealed playground — it never
-claims to have proved anything.
+and conjectures, and where an exact verifier exists it *climbs* toward checkable results in
+a sealed playground — but it never claims to have proved anything it hasn't independently
+re-verified.
 
 ---
 
@@ -36,11 +37,13 @@ surprising bridges come from.
 | `maya.py` | the tool calls — the whole interface |
 | `memory.py` | the global associative graph — the **subconscious** |
 | `verifier.py` | the sealed playground for self-written checks |
+| `evolve.py` | turn `verify` into a *fitness* and climb it — a FunSearch-style loop (MAP-Elites) |
+| `fitness_templates.py` | ready graded fitnesses for math & physics |
 | `ideas.md` | conjectures, for human review |
 | `questions.md` | open doubts (add your own to steer it) |
 | `architecture.md` | how and why it works |
 
-Three code files. The cognition is the agent; the skeleton is small and readable.
+A few small code files. The cognition is the agent; the skeleton is small and readable.
 
 ---
 
@@ -56,6 +59,7 @@ associate → doubt → dream → verify → curiosity** — all through `maya`�
 - **ask** a doubt → it jumps to the top of the frontier and gets chased first.
 - **dream** at the frontier → novel connections become conjectures in `ideas.md`.
 - **verify** a checkable piece → write code, run it sealed (no network, time/memory limits).
+- **climb** a checkable target → write a graded `fitness()` and evolve candidates up it — a FunSearch-style loop (`evolve.py` / `fitness_templates.py`), so `verify` becomes a *hill*, not a gate.
 
 The subconscious is an 8-layer typed graph with a vector index and spreading
 activation. Every write is **idempotent** (re-running reinforces, never duplicates),

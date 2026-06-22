@@ -7,3 +7,10 @@ __pycache__/
 findings.json
 
 # the persisted graph lives in ~/.cache/maya/graph/ — outside the repo
+
+# kept local for now — the showcase site
+build_site.py
+docs/
+
+# runtime narrative (the agent writes it per run)
+log.md

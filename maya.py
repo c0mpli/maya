@@ -11,6 +11,13 @@ for input.md's topic and auto-saves on exit. The whole interface is right here.
     print(maya.frontier())                          # open questions / contradictions / thin spots
     print(maya.distant("entanglement entropy"))     # far-apart ideas -> surprising bridges
     maya.conjecture(title="...", claim="...", why="...", test="...", sources=["arXiv:..."])  # -> ideas.md
+
+    # turn verify into a HILL and climb it (FunSearch loop; see evolve.py / fitness_templates.py):
+    maya.fitness("problem", FITNESS_CODE)           # register one graded check: fitness()->{score, descriptor}
+    maya.evaluate("problem", CANDIDATE_CODE)        # score a candidate; files it into a behavior niche
+    maya.elites("problem"); maya.champion("problem")  # parents to mutate; the best so far
+    maya.surprising("entanglement")                 # novelty: distant-but-reachable links (anti-association)
+    maya.duel("conj A", "conj B", "conj A"); maya.by_taste()   # Elo: which conjecture is more fruitful
 """
 from __future__ import annotations
 
@@ -188,3 +195,106 @@ def verify(check_code, entry="check", timeout=30):
     objective quantity vs known ground truth — a check that returns True proves nothing."""
     import verifier
     return verifier.run(check_code, entry=entry, timeout=timeout)
+
+
+# ── EVOLVE — turn verify into a FITNESS and climb it (FunSearch loop, evolve.py) ─
+def fitness(problem, fitness_code):
+    """Register the immutable graded verifier for a problem: fitness() -> {score, descriptor}."""
+    import evolve
+    return evolve.set_fitness(problem, fitness_code)
+
+
+def evaluate(problem, candidate_code, timeout=30):
+    """Score a candidate up the hill and file it into its behavior niche; returns graded feedback.
+    The candidate defines solve(); the registered fitness grades it. This is the loop the cortex drives:
+    elites() -> mutate -> evaluate() -> repeat."""
+    import evolve
+    return evolve.evaluate(problem, candidate_code, timeout=timeout)
+
+
+def elites(problem, k=8):
+    """The diverse high-scorers (one per behavior niche) — your parents to mutate (quality-diversity)."""
+    import evolve
+    return evolve.elites(problem, k)
+
+
+def champion(problem):
+    """The single best candidate so far."""
+    import evolve
+    return evolve.best(problem)
+
+
+def evolve_status(problem):
+    """Pool status: niches filled, best score, evaluations."""
+    import evolve
+    return evolve.status(problem)
+
+
+# ── SYNTHESIS — pour verifier-labeled elites back into the subconscious ───────
+def ingest_elites(problem, k=6):
+    """Manufacture data: file the pool's best verified candidates into the graph as ideas,
+    so the loop's discoveries feed the memory (your own AlphaProof-style data factory)."""
+    import evolve
+    m = _g()
+    n = 0
+    for e in evolve.elites(problem, k):
+        m.emerge(f"{problem} · {round(e['score'], 4)}",
+                 f"evolved candidate (niche {e['descriptor']}, score {e['score']}):\n{e['program'][:200]}",
+                 status="idea", score=e["score"])
+        n += 1
+    _touch()
+    return n
+
+
+# ── SURPRISE — invert the ranking toward novelty (distant but reachable) ──────
+def surprising(name, k=8):
+    """Plausible-but-low-probability long-range links: far in meaning, yet connected.
+    The anti-association frontier — stepping-stones to novelty, not progress toward an objective."""
+    m = _g()
+    q = m._by_name.get(name.strip().lower()) or name
+    out = []
+    for nid, sim in m.find_distant(q, k=80, kinds=["concept", "emergent"]):
+        deg = len(m.out.get(nid, [])) + len(m.inc.get(nid, []))
+        if deg > 0:                                   # connected = plausible, not isolated noise
+            out.append((m.nodes[nid].name, round(float(sim), 3), deg))
+    out.sort(key=lambda t: (t[1], -t[2]))             # most distant first, then most connected
+    return [n for n, _, _ in out[:k]]
+
+
+# ── TASTE — Elo duels on conjectures ("which is more fruitful?") ──────────────
+def _resolve(ref):
+    m = _g()
+    if ref in m.nodes:
+        return ref
+    key = (ref or "").strip().lower()
+    if key in m._by_name:
+        return m._by_name[key]
+    for nid, n in m.nodes.items():                    # resolve conjectures / any node by name
+        if n.name.strip().lower() == key:
+            return nid
+    return None
+
+
+def duel(a, b, winner):
+    """Record one pairwise taste judgment; update Elo on the two nodes. winner = a or b (name/id)."""
+    m = _g()
+    ia, ib = _resolve(a), _resolve(b)
+    if not ia or not ib:
+        return None
+    ra = m.nodes[ia].data.get("elo", 1200.0)
+    rb = m.nodes[ib].data.get("elo", 1200.0)
+    ea = 1.0 / (1.0 + 10 ** ((rb - ra) / 400.0))
+    sa = 1.0 if (winner in (a, ia) or str(winner).strip().lower() == "a") else 0.0
+    K = 24.0
+    m.nodes[ia].data["elo"] = round(ra + K * (sa - ea), 1)
+    m.nodes[ib].data["elo"] = round(rb + K * ((1 - sa) - (1 - ea)), 1)
+    _touch()
+    return {a: m.nodes[ia].data["elo"], b: m.nodes[ib].data["elo"]}
+
+
+def by_taste(k=12, kind="emergent"):
+    """Conjectures ranked by Elo — where to spend compute (taste, not just novelty or association)."""
+    m = _g()
+    items = [(n.name, n.data.get("elo", 1200.0)) for n in m.nodes.values() if n.kind == kind]
+    items.sort(key=lambda t: -t[1])
+    return items[:k]
