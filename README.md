@@ -69,7 +69,7 @@ so the loop is safe to repeat. See [`architecture.md`](architecture.md) for the 
 
 ## Contributions
 
-Machine-checked output — see [`contributions.md`](contributions.md).
+**Contributed to** [formal-conjectures](https://github.com/google-deepmind/formal-conjectures) — DeepMind's formalized-problem corpus, on [Lean](https://lean-lang.org) + [mathlib](https://github.com/leanprover-community/mathlib4). Machine-checked output, see [`contributions.md`](contributions.md):
 
 - [formal-conjectures #4304](https://github.com/google-deepmind/formal-conjectures/pull/4304) — difficulty 5/10 (open PR)
 
