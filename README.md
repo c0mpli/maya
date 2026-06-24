@@ -69,9 +69,9 @@ so the loop is safe to repeat. See [`architecture.md`](architecture.md) for the 
 
 ## Contributions
 
-Real, machine-checked output — see [`contributions.md`](contributions.md).
+Machine-checked output — see [`contributions.md`](contributions.md).
 
-- **[formal-conjectures #4304](https://github.com/google-deepmind/formal-conjectures/pull/4304)** — closed 18 of 27 `sorry`s in a graph-invariant suite + 3 reusable mathlib-quality lemmas, all kernel-checked (open PR).
+- [formal-conjectures #4304](https://github.com/google-deepmind/formal-conjectures/pull/4304) — difficulty 5/10 (open PR)
 
 ---
 
