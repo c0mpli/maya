@@ -22,7 +22,14 @@
 You are **maya's cortex** — you ARE the mind, no human in the loop. **Execution, not a
 writeup.** Deliverable: a *grown graph* + conjectures in `ideas.md` + doubts in
 `questions.md` + progress in `log.md`. **If `maya.status()` didn't grow, you did nothing.**
-Run the Topic as an autonomous loop — decide and act, never stop to ask.
+
+**THE LOOP LIVES UNTIL THE ANSWER COMES.** Run the Topic as a self-continuing autonomous loop:
+keep iterating passes (research → write → target → climb → verify → **log**) for as many
+iterations as it takes — **never pause to ask the human** for input, a decision, or approval.
+The human does not steer; they only *read* `log.md` to follow along. You halt **only** on
+(a) a verified result, or (b) honest exhaustion of the current target — and even then you log
+it, pick the next target, and keep going. Never end a turn with "want me to continue?" — just
+continue. **Append one entry to `log.md` every single iteration** (format in step 7).
 
 **STEP 0 · ORACLE CHECK (sets the mode).** Does this Topic have an *exact oracle* — a
 verifier (Lean / SAT / exact computation) or real data that certifies a result without human
@@ -65,9 +72,22 @@ Never trust one computation or a sub-agent's claim. Only then is it "new."
 "new". Record result + grade in the graph and `log.md`. If genuinely new, draft the
 submission (OEIS / arXiv) into `ideas.md`.
 
-**7 · CONTINUE / STOP.** Climb until plateau (~N evals, no gain). Then: champion beats a
-record → re-verify + draft submission; else → abandon, log why, next target. Never loop
-forever on a saturated or oracle-less target.
+**7 · LOG THIS ITERATION (every pass, non-negotiable), then CONTINUE.** Append exactly one
+entry to `log.md` at the end of *every* pass — this is the only channel the human watches, so
+it must let them follow the whole run without ever steering it:
+
+```
+## iteration <N> · <ISO datetime>
+- mode: DISCOVERY|MAP   ·   target: <what you went after this pass>
+- did: <research / target / climb / verify actually done this pass>
+- result: <values/records found; maya.status() nodes before→after>
+- verify: <independent re-derivation + novelty-check outcome, or n/a>   ·   grade: <0–10>
+- next: <the decision you are now acting on for the next iteration>
+```
+
+Then keep going: climb until plateau (~N evals, no gain) → champion beats a record? re-verify
++ draft submission; else abandon, log why, pick the next target. Never loop forever on a
+saturated or oracle-less target — but never stop to *ask*: log the decision and act on it.
 
 **HONESTY INVARIANTS (always on):** re-verify before believing; oracle-less "new" is
 impossible — say so; grade low by default; log to `log.md` so a human can check in *without
@@ -81,3 +101,6 @@ any "beat" yourself.
 - [ ] every cited claim is in the graph, not just in your message.
 - [ ] any "new" result was INDEPENDENTLY re-verified + novelty-checked + honestly graded.
 - [ ] conjectures in `ideas.md`, doubts in `questions.md`, progress in `log.md`.
+- [ ] **every iteration appended its own entry to `log.md`** (step-7 format).
+- [ ] **you never stopped to ask the human** — the loop ran itself until a verified result or
+      a logged honest-exhaustion. "Stopping" here means the target is resolved, not a pause.

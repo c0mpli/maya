@@ -56,6 +56,19 @@ def hash_embed(text: str, dim: int = EMBED_DIM) -> np.ndarray:
     return vec / n if n > 0 else vec
 
 
+def _default_embed(text: str, dim: int = EMBED_DIM) -> np.ndarray:
+    """Use a real semantic embedder if one is configured (see maya_embed.py), else fall back to the
+    deterministic offline hash_embed. This makes recall/analogy/distant *semantic* the moment you plug
+    in a model — and keeps maya fully working offline until then. Model-agnostic by design."""
+    try:
+        import maya_embed
+        if maya_embed.available():
+            return maya_embed.embed(text, dim)
+    except Exception:
+        pass
+    return hash_embed(text, dim)
+
+
 @dataclass
 class Node:
     id: str
@@ -82,7 +95,7 @@ class Edge:
 class Memory:
     def __init__(self, embed: Optional[Callable[[str], np.ndarray]] = None,
                  dim: int = EMBED_DIM, seed: int = 0):
-        self.embed = embed or hash_embed
+        self.embed = embed or _default_embed
         self.dim = dim
         self.nodes = {}                 # id -> Node
         self.out = {}                   # src -> [Edge]
